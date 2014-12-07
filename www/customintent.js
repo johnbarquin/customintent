@@ -1,16 +1,12 @@
 var customintent = {
 	fireIntent: function(successCallback, errorCallback) {
-		console.log("Before exec");
-
 		cordova.exec(
 			successCallback,
 			errorCallback,
 			'CustomIntent',
-			'geo',
+			'custom',
 			[]
 		);
-
-		console.log("After intent");
 	}
 }
 

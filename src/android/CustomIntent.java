@@ -1,5 +1,4 @@
 package com.electrosoftservice.customintent;
- 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.json.JSONObject;
@@ -9,10 +8,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
+import android.content.Context;
+import android.content.ComponentName;
+import android.view.WindowManager;
 
 public class CustomIntent extends CordovaPlugin {
 
-	public static final String ACTION_RUN_GEO = "geo";
 	private static final String TAG = "qConnect";
 
 	@Override
@@ -20,14 +21,14 @@ public class CustomIntent extends CordovaPlugin {
 		Log.d(TAG, "Todo bien hasta aqui");
 		try {
 
-
-			String url_str = "geo:37.786971,-122.399677";
-			Uri uri = Uri.parse(url_str);
-			Intent it = new Intent(Intent.ACTION_VIEW);
-			it.setData(uri);
-            this.cordova.getActivity().startActivity(it);
+			Context context=this.cordova.getActivity().getApplicationContext();
+			Intent it = new Intent("android.intent.action.MAIN");
+			it.setClass(context, this.cordova.getActivity().getClass());
+			it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			it.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED + WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD + WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON + WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+			context.getApplicationContext().startActivity(it);
             callbackContext.success();
-            return true;
+			return true;
 
         } catch (Exception e) {
         	String msg = "Exception executing intent: " + e.getMessage();
@@ -36,7 +37,5 @@ public class CustomIntent extends CordovaPlugin {
 	        callbackContext.error(msg);
 	        return false;
         }
-
-
 	}	
 }
