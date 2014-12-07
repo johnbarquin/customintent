@@ -1,0 +1,24 @@
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android"
+    id="com.electrosoftservice.customintent"
+    version="0.1.0">
+    <name>CustomIntent</name>
+    <description>My first plugin that fires an intent</description>
+    <license>Apache 2.0</license>
+    <keywords>intent,custom</keywords>
+    <js-module src="www/customintent.js" name="customintent">
+        <merges target="customintent" />
+    </js-module>
+
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="CustomIntent">
+                <param name="android-package" value="com.electrosoftservice.customintent.CustomIntent"/>
+            </feature>
+        </config-file>
+        <source-file 
+            src="src/android/CustomIntent.java" 
+            target-dir="src/com/electrosoftservice/customintent"/>
+    </platform>
+    
+</plugin>
+
